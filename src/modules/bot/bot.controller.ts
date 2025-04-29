@@ -14,14 +14,34 @@ export class BotController {
     await this.botService.onStart(ctx);
   }
 
-  @CallbackQuery('launch')
+  @Command('stopdialog')
+  async stopDialog(@Ctx() ctx: Context): Promise<void> {
+    await this.botService.stopDialog(ctx);
+  }
+
+  @CallbackQuery('stopdialog')
+  async callbackStopDialog(@Ctx() ctx: Context) {
+    await this.botService.stopDialog(ctx);
+  }
+
+  @CallbackQuery('online')
   async callbackLaunch(@Ctx() ctx: Context) {
     await this.botService.commandStart(ctx);
   }
 
-  @Command('launch')
+  @Command('online')
   async commandLaunch(@Ctx() ctx: Context) {
     await this.botService.commandStart(ctx);
+  }
+
+  @Command('offline')
+  async commandEnd(@Ctx() ctx: Context) {
+    await this.botService.commandEnd(ctx);
+  }
+
+  @CallbackQuery('offline')
+  async callbackEnd(@Ctx() ctx: Context) {
+    await this.botService.commandEnd(ctx);
   }
 
   @CallbackQuery('queue')
@@ -34,24 +54,19 @@ export class BotController {
     await this.botService.commandQueue(ctx);
   }
 
-  @Command('stop')
-  async commandStop(@Ctx() ctx: Context) {
-    await this.botService.commandStop(ctx);
-  }
-
-  @CallbackQuery('stop')
-  async callbackStop(@Ctx() ctx: Context) {
-    await this.botService.commandStop(ctx);
-  }
-
   @Command('register')
   async commandRegister(@Ctx() ctx: Context) {
     await this.botService.register(ctx);
   }
 
-  @Command('stopdialog')
-  async stopDialog(@Ctx() ctx: Context) {
-    await this.botService.stopDialogAndTakeNextQueue(ctx);
+  @Command('getbooking')
+  async commandGetBooking(@Ctx() ctx: Context) {
+    await this.botService.commandGetBooking(ctx);
+  }
+
+  @CallbackQuery('getbooking')
+  async callbackGetBooking(@Ctx() ctx: Context) {
+    await this.botService.commandGetBooking(ctx);
   }
 
   @CallbackQuery('register')
@@ -82,6 +97,8 @@ export class BotController {
       return this.botService.showMessageButton(ctx, data);
     } else if (callback == 'get_booking') {
       return this.botService.callbackGetBookingButton(ctx, data);
+    } else if (callback == 'take_next_client') {
+      return this.botService.takeNextClient(ctx);
     }
   }
 }

@@ -1,5 +1,5 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString, Length } from 'class-validator';
 
 export class CreateChatDto {
   @ApiPropertyOptional({
@@ -20,4 +20,23 @@ export class CreateChatDto {
   })
   @IsString()
   consultationId?: string;
+}
+
+export class StopConsultationAndChatDto {
+  @ApiPropertyOptional({
+    required: false,
+    description: 'File ID',
+  })
+  @IsString()
+  @IsOptional()
+  fileId?: string;
+
+  @ApiPropertyOptional({
+    required: false,
+    description: 'Content of the chat',
+  })
+  @IsOptional()
+  @IsString()
+  @Length(1, 5000)
+  content?: string;
 }

@@ -2,10 +2,10 @@ export enum MessageTypeEnum {
   Text = 'text',
   Photo = 'photo',
   Video = 'video',
-  VideoCall = 'video_call',
-  AudioCall = 'audio_call',
+  Call = 'call',
   Payment = 'payment',
   Rate = 'rate',
+  RecommendDoctor = 'recommendDoctor',
   AcceptOperator = 'acceptOperator',
   Document = 'document',
 }

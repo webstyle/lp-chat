@@ -16,6 +16,9 @@ export const env = cleanEnv(process.env, {
   REJECTED_MESSAGE_TIMEOUT_IN_MINUTES: num({ default: 30 }),
   FIND_FREE_OPERATORS_CRON_PATTERN: str({ default: '*/1 * * * *' }),
 
+  STREAM_API_KEY: str(),
+  STREAM_SECRET: str(),
+
   JWT_SECRET: str(),
   JWT_SECRET_DOCTOR: str(),
 });

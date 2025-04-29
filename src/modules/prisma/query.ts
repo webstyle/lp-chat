@@ -9,6 +9,7 @@ export function messagesQuery(prisma: PrismaClient, { clientId, operatorId, cons
                 m."updated_at" AS "updatedAt",
                 m.type         AS "type",
                 m.rate         AS "rate",
+                m.call_duration AS "callDuration",
                 CASE
                     WHEN a.id IS NULL AND a.firstname IS NULL AND a.lastname IS NULL AND a."user_id" IS NULL AND
                          a."doctor_id" IS NULL THEN NULL
@@ -45,12 +46,14 @@ export function messagesQuery(prisma: PrismaClient, { clientId, operatorId, cons
                             'file', rm.file_id
                          )
                     END        AS "repliedMessage",
-                to_jsonb(f.*)  AS "file"
+                to_jsonb(f.*)  AS "file",
+                to_jsonb(tr.*) as transaction
 FROM chat.message AS m
          JOIN chat.chat as ch on ch.id = m.chat_id and ch.is_deleted is false
          LEFT JOIN chat."user" AS a ON m."author_id" = a.id and a.is_deleted is false
          LEFT JOIN doctor.doctors AS ad ON m."accept_doctor_id" = ad.id and ad.is_deleted is false
          LEFT JOIN chat.message AS rm ON m."replied_message_id" = rm.id and rm.is_deleted is false
+         LEFT JOIN consultation.transactions as tr on tr.id::text = m.transaction_id::text 
          LEFT JOIN file.files AS f ON m."file_id" = f.id and f.is_deleted is false
 WHERE m."is_deleted" = FALSE
   and ch.consultation_id = ${consultationId}

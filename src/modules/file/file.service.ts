@@ -8,6 +8,7 @@ import { createWriteStream, unlinkSync } from 'fs';
 import { pathToStatic } from 'src/common/var/index.var';
 import { getBucketName, objectId } from '../../common/util/formate-message.util';
 import { IUser } from '../../common/interface/my-req.interface';
+import * as contentDisposition from 'content-disposition';
 
 @Injectable()
 export class FileService {
@@ -64,28 +65,34 @@ export class FileService {
       `${file.id}${extname(file.name)}`,
     );
 
-    response.set({
-      'Content-Disposition': `attachment; filename="${file.name}"`,
-    });
-    response.status(200);
+    const disp = contentDisposition(file.name);
+    response
+      .header('Accept-Range', 'bytes')
+      .header('Content-Type', file.type)
+      .header('Content-Length', `${file.size}`)
+      .header('Content-Disposition', `attachment; ${disp}`);
     stream.pipe(response);
     await this.prisma.downloadHistory.create({
       data: {
-        userId: user.userId,
-        doctorId: user.doctorId,
+        userId: user.userId || user.doctorId,
         fileId: fileId,
       },
     });
+
+    response.status(200);
   }
 
   async downloadToStatic(fileId: string) {
     const file = await this.prisma.file.findFirst({ where: { id: fileId } });
     if (!file) throw new NotFoundException('File not found');
     const filename = `${file.id}${extname(file.name)}`;
+    // console.log(`Downloading ${filename}`);
     const stream = await this.minio.client.getObject(file.bucketName, filename);
+    // console.log('Stream started, ', pathToStatic + filename);
     const ws = createWriteStream(pathToStatic + filename);
     stream.pipe(ws);
     ws.on('finish', () => ws.close());
+    // console.log(`Downloading finished ${filename}`);
     await new Promise((resolve) => ws.on('finish', resolve));
   }
 

@@ -38,6 +38,7 @@
     "@nestjs/swagger": "^8.1.0",
     "@nestjs/websockets": "^10.4.15",
     "@prisma/client": "^6.2.1",
+    "@stream-io/node-sdk": "^0.4.11",
     "axios": "^1.7.9",
     "bson-objectid": "^2.0.4",
     "class-transformer": "^0.5.1",

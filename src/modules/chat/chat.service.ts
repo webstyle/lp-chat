@@ -2,8 +2,6 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateChatDto } from './dto/chat.dto';
 import { BotService } from '../bot/bot.service';
-import { SchedulerRegistry } from '@nestjs/schedule';
-import { findOperatorsCronId } from 'src/common/var/index.var';
 import {
   CreateDraftMessageDto,
   CreateMessageDto,
@@ -25,7 +23,6 @@ export class ChatService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly botService: BotService,
-    private schedulerRegistry: SchedulerRegistry,
     private socket: SocketGateway,
   ) {}
 
@@ -84,6 +81,7 @@ export class ChatService {
           type: mes.type,
           transactionId: mes.transactionId,
           rate: mes.rate || null,
+          callDuration: mes.callDuration || null,
           repliedMessageId: mes.repliedMessageId,
           createdAt: mes.createdAt,
         },
@@ -96,6 +94,7 @@ export class ChatService {
       }
 
       await this.botService.messageViaBot(message.id);
+      await this.socket.sendMessageByClientViaSocket(dto.consultationId, mes);
     }
 
     return {
@@ -118,7 +117,6 @@ export class ChatService {
       where: {
         id: consultation?.chatId,
         clientId: user.id,
-        status: { in: ['init'] },
         consultationId: dto.consultationId,
       },
       include: { messages: true },
@@ -323,19 +321,19 @@ export class ChatService {
         const sendMessage = {
           ...operator,
           specialties: existDoctorWithQuery?.specialties || null,
+          sip: existDoctorWithQuery?.sip,
         };
 
         this.socket.sendMessageToAcceptOperator(chat?.consultationId, sendMessage);
 
         await this.botService.sendReceiveConversationButton(
-          [operator],
+          operator,
           chat.client,
           chat.id,
           chat.topic.name,
-          trx,
         );
 
-        await this.getAllActiveOperators();
+        await this.getAllActiveOperators(trx);
 
         return {
           success: true,
@@ -397,6 +395,8 @@ export class ChatService {
         user,
         trx,
       );
+
+      await this.getAllActiveOperators(trx);
 
       return { consultation, transaction };
     });
@@ -512,82 +512,6 @@ export class ChatService {
     });
   }
 
-  private async toStopCron() {
-    const chats = await this.prisma.chat.findMany({
-      where: {
-        status: 'init',
-        messages: {
-          some: { OR: [{ content: { not: null } }, { fileId: { not: null } }] },
-        },
-      },
-      include: { messages: true },
-    });
-    return !chats.length;
-  }
-
-  async findOperatorsCron() {
-    const operators = await this.prisma.user.findMany({
-      where: {
-        blockedAt: null,
-        approvedAt: { not: null },
-        telegramId: { not: null },
-        shiftStatus: 'active',
-        operatorChats: { none: { status: 'active' } },
-      },
-      include: { rejectedChats: true },
-    });
-
-    const chats = await this.prisma.chat.findMany({
-      where: { status: 'init', messages: { some: {} } },
-      include: { client: true, topic: true },
-    });
-
-    for (const chat of chats) {
-      await this.botService.sendReceiveConversationButton(
-        operators,
-        chat.client,
-        chat.id,
-        chat.topic.name,
-      );
-    }
-    const toStopCron = await this.toStopCron();
-    if (toStopCron) {
-      const job = this.schedulerRegistry.getCronJob(findOperatorsCronId);
-      job.stop();
-    }
-  }
-
-  async findOperatorsAndSendToClient(operatorId: string, chatId: string) {
-    const operators = await this.prisma.user.findMany({
-      where: {
-        id: operatorId,
-        blockedAt: null,
-        approvedAt: { not: null },
-        telegramId: { not: null },
-        shiftStatus: 'active',
-        operatorChats: { none: { status: 'active' } },
-      },
-      include: { rejectedChats: true },
-    });
-
-    const chats = await this.prisma.chat.findMany({
-      where: { id: chatId, status: 'init', messages: { some: {} } },
-      include: { client: true, topic: true },
-    });
-
-    for (const chat of chats) {
-      await this.botService.sendReceiveConversationButton(
-        operators,
-        chat.client,
-        chat.id,
-        chat.topic.name,
-      );
-    }
-    return {
-      success: true,
-    };
-  }
-
   async chatCreate(dto: CreateChatDto, user: IUser, trx = null) {
     trx = trx ? trx : this.prisma;
 
@@ -675,7 +599,7 @@ export class ChatService {
     return { activeChat, messages, success: true };
   }
 
-  async getMessagesByChatId(dto: GetMessagesByChatIdDto, { id: userId }: IUser) {
+  async getMessagesByChatId(dto: GetMessagesByChatIdDto) {
     const existConsultation = await this.prisma.consultation.findFirst({
       where: {
         id: dto?.consultationId,
@@ -684,6 +608,16 @@ export class ChatService {
 
     if (!existConsultation || !existConsultation?.chatId) {
       throw new NotFoundException('ChatId not found');
+    }
+
+    const getClient = await this.prisma.user.findFirst({
+      where: {
+        userId: existConsultation.userId,
+      },
+    });
+
+    if (!getClient) {
+      throw new NotFoundException('Consultation user not found');
     }
 
     const activeChat = await this.prisma.chat.findMany({
@@ -701,10 +635,10 @@ export class ChatService {
         isDeleted: false,
         OR: [
           {
-            clientId: userId,
+            clientId: getClient.id,
           },
           {
-            operatorId: userId,
+            operatorId: existConsultation.operatorId,
           },
         ],
       },
@@ -759,31 +693,35 @@ export class ChatService {
     // });
 
     const messages = await messagesQuery(this.prisma, {
-      clientId: userId,
-      operatorId: userId,
+      clientId: getClient.id,
+      operatorId: existConsultation.operatorId,
       consultationId: dto.consultationId,
     });
 
     return { activeChat, messages };
   }
 
-  async getAllActiveOperators() {
-    const data: any[] = await this.prisma.$queryRaw`
-        select chu.id,
-               chu.shift_status,
-               chu.user_id,
-               chu.doctor_id,
-               chu.firstname,
-               chu.phone,
-               to_json(ct.*) as transaction_info
-        from chat."user" as chu
-                 left join consultation.transactions as ct
-                           on ct.operator_id = chu.id and ct.status = 0 and ct.expires_at <= now()
-        where chu.is_deleted is false
-          and ct.id is null
-          and doctor_id is not null
-          and chu.shift_status = 'active'
-        order by chu.last_chat_accept_date desc
+  async getAllActiveOperators(trx = null) {
+    trx = trx || this.prisma;
+    const data: any[] = await trx.$queryRaw`
+            SELECT chu.id,
+                  chu.shift_status,
+                  chu.user_id,
+                  chu.doctor_id,
+                  chu.firstname,
+                  chu.lastname,
+                  chu.phone
+            FROM chat."user" AS chu
+            WHERE chu.is_deleted IS FALSE
+              AND chu.doctor_id IS NOT NULL
+              AND chu.shift_status = 'active'
+              AND NOT EXISTS (SELECT 1
+                              FROM consultation.transactions AS ct
+                              WHERE ct.operator_id = chu.id
+                                AND ct.status = 0
+                                AND ct.expires_at >= NOW())
+            ORDER BY chu.last_chat_accept_date DESC;
+
     `;
 
     this.socket.sendActiveOperatorsViaSocket(data || []);

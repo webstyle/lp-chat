@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { user } from '@prisma/client';
@@ -77,13 +82,27 @@ export class UserService {
         throw new NotFoundException('User not found');
 
       // Check if a user already exists based on userId or doctorId
-      let existingUser: any = await this.prisma.user.findFirst({
-        where: {
-          userId: content?.userType === 'user' ? content?.id : null,
-          doctorId: content?.userType === 'doctor' ? content?.id : null,
-          isDeleted: false,
-        },
-      });
+      let existingUser: any;
+
+      if (content?.userType === 'doctor') {
+        existingUser = await this.prisma.user.findMany({
+          where: {
+            doctorId: content.id,
+            userId: null,
+            phone: content.phone_number,
+            isDeleted: false,
+          },
+        });
+      } else if (content?.userType === 'user') {
+        existingUser = await this.prisma.user.findMany({
+          where: {
+            userId: content.id,
+            doctorId: null,
+            isDeleted: false,
+            phone: content.phone_number,
+          },
+        });
+      }
 
       if (!existingUser) {
         // Create a new user
@@ -94,7 +113,11 @@ export class UserService {
         });
       }
 
-      const data: user = { ...content, ...existingUser };
+      if (existingUser?.length > 1) {
+        throw new ConflictException('More than two users found with the same phone number');
+      }
+
+      const data: user = { ...content, ...existingUser[0] };
       return CoreApiResponse.success(data);
     } catch (error) {
       return CoreApiResponse.error(error);
@@ -108,13 +131,13 @@ export class UserService {
       const payload = await this.jwtService.verifyAsync(token, {
         secret: env.JWT_SECRET,
       });
-      return { ...payload, userType: 'user' };
+      return { ...payload, userId: payload?.id, userType: 'user' };
     } catch {
       try {
         const payload = await this.jwtService.verifyAsync(token, {
           secret: env.JWT_SECRET_DOCTOR,
         });
-        return { ...payload, userType: 'doctor' };
+        return { ...payload, doctorId: payload?.id, userType: 'doctor' };
       } catch {
         throw new UnauthorizedException('Invalid token');
       }

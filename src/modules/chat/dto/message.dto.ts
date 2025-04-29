@@ -20,6 +20,7 @@ export class MessageDto {
   @ApiProperty()
   @IsOptional()
   @IsString()
+  @IsNotEmpty()
   @Length(1, 255)
   content?: string;
 
@@ -29,6 +30,7 @@ export class MessageDto {
   @IsEnum(MessageTypeEnum, { each: true })
   type: MessageTypeEnum;
 
+  @ApiPropertyOptional()
   @ApiProperty()
   @IsOptional()
   @IsString()
@@ -37,24 +39,33 @@ export class MessageDto {
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
+  @IsNotEmpty()
   fileId?: string;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsDate()
+  @IsNotEmpty()
   createdAt?: Date;
 
   @ApiPropertyOptional()
   @IsString()
   @Length(36)
+  @IsNotEmpty()
   @ValidateIf((x) => x.type == MessageTypeEnum.Payment)
   transactionId?: string;
 
   @ApiPropertyOptional()
-  @IsOptional()
   @IsNumber()
+  @IsNotEmpty()
   @ValidateIf((x) => x.type == MessageTypeEnum.Rate)
   rate?: number;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  @IsNotEmpty()
+  @ValidateIf((x) => x.type == MessageTypeEnum.Call)
+  callDuration?: number;
 }
 
 export class CreateMessageDto {

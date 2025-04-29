@@ -1,0 +1,506 @@
+*** Overview *** 
+URL https://dev.davoai.uz/api/notification/history
+Method POST
+Response Code 201
+Request Start Time янв. 20 2025 - 18:38:40
+Duration 54ms
+
+*** curl Request *** 
+$ curl -v \
+	-X POST \
+	-H "Accept-Language: ru-UZ;q=1.0, en-UZ;q=0.9" \
+	-H "Content-Type: application/json" \
+	-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NmJkMTI4YzE0NjIyMDAwMTc3MmVmOSIsImlzX3ZlcmlmaWVkIjp0cnVlLCJjcmVhdGVkX2F0IjoiMjAyNC0xMi0yNVQwOTozMjoyNC4wMzVaIiwicm9sZSI6InVzZXIiLCJpc19kZWxldGVkIjpmYWxzZSwiY3JlYXRlZF9ieSI6IjY2ZTJlZDgzYmE0NGM1MTM3OGYzNTc3MCIsImxhbmciOm51bGwsInBob25lX251bWJlciI6Ijk5ODkzMDA0MDYxMyIsImZpcnN0X25hbWUiOiJMaUphIiwibGFzdF9uYW1lIjoiU3ppbiIsImJpcnRoX2RhdGUiOiIyMDAyLTA5LTI2IiwiZmlsZV9wYXRoIjpudWxsLCJ2ZXJpZmljYXRpb25fYXR0ZW1wdCI6IjIiLCJibG9ja2VkX2F0IjpudWxsLCJhdHRlbXB0X2NvdW50IjowLCJnZW5kZXIiOiJtYWxlIiwiYmxvb2RfZ3JvdXBfaWQiOm51bGwsInBhc3N3b3JkIjpudWxsLCJzaXAiOiI2NDUiLCJzaXBfcGFzc3dvcmQiOm51bGwsImZyZWVfY29uc3VsdGF0aW9ucyI6OTMsIm5hdGlvbmFsaXR5X2lkIjoiNjc4MTU3ZTcwN2U2MGIxZmE5ZDBjMzAzIiwicmVnaW9uX2lkIjoiNjc4MTYxNzI3MWRjODUxZmE5NjNmNTkzIiwiYWdlIjpudWxsLCJpYXQiOjE3MzczNzk0ODF9.flkftK-jAzgDT-YMi-jDn7qurZT5Hf-92gYXvDwtcPs" \
+	-H "Accept: application/json" \
+	-H "User-Agent: Symptom Checker/1.0.0 (uz.Akfa.Symptom-Checker; build:18; iOS 17.1.2) Alamofire/5.10.1" \
+	-H "Content-Length: 32" \
+	-H "Accept-Encoding: br;q=1.0, gzip;q=0.9, deflate;q=0.8" \
+	-d "{
+  \"page\" : 1,
+  \"limit\" : 50
+}" \
+	-b "connect.sid=s%3ABZNdeH2fe02c1aPQl1D_jdaGkx8K4JyG.xi1Cjk8jjgjteoV9mrzY3c3E0Hl7TpuLtZUk%2FwEGkzg" \
+	"https://dev.davoai.uz/api/notification/history"
+
+*** Response Header *** 
+Server nginx/1.20.1
+Content-Type application/json; charset=utf-8
+Access-Control-Allow-Origin *
+Date Mon, 20 Jan 2025 13:38:40 GMT
+Content-Length 14382
+
+
+*** Response Body *** 
+{
+  "page" : 1,
+  "data" : [
+    {
+      "id" : "678e51dbfa492d1ecbf2ba7f",
+      "body" : "This",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-20T13:38:35.732Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-20",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "dT04JJjN0kcGvVzA96hWe0:APA91bFtej3cOx7d3Yxh2_xYW3lvWglwHIyj-tjjZoaGQSKGT44dSRDjt1c6v0CStJz8dj4r5VJZo8suAjI0Tr6h5HoyZahWG-c2O9_LjCBg3DOcz7yXWS0",
+      "is_read" : false
+    },
+    {
+      "id" : "678e515e6c78e21e01c59368",
+      "body" : "This week you have spend",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-20T13:36:30.083Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-20",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "cWMVj6GE7UP9pqsrloVT4N:APA91bFiKR1cmHAEW9J5jB7WWe5B4JaE5DZopZ3SEFkcBDZJyW6ipe_SVdNc6-IQziZWUh-ZxtF5RNOVcwIySDBXUySXXAY-kSdKjc9glj7qEnp1PqTzmzI",
+      "is_read" : false
+    },
+    {
+      "id" : "678e515ee2c51a1e011d69a6",
+      "body" : "This week you have spend",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-20T13:36:30.083Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-20",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "cEbocRbzNE8ylmsszW2Yqj:APA91bEPogElCCO7pSGaUXltEWR170lfc3jVenr1aTFTIKl5GsQs1uZZpkRRm6k0JYh5OM8Zg-q0Xa_nhC9cE_CESCTG-AHhRmFsm-HM5Y0VswuDv7z9BGs",
+      "is_read" : false
+    },
+    {
+      "id" : "678e515eff9e041e01e63892",
+      "body" : "This week you have spend",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-20T13:36:30.083Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-20",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "cMOSXNGH7UfKnJQ2BTUCUZ:APA91bHh_D3mnoRL5XM8LoZkXaTYX7gCVGOa_UWQsbKHFxAH7WpwgD3DJxXP22c8phz_9p9AanaF_wloTUkLdYDCVHdynTu-EBfyVqDEJub9gjwGbYjJVL4",
+      "is_read" : false
+    },
+    {
+      "id" : "678e515e747a0f1e01242f2a",
+      "body" : "This week you have spend",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-20T13:36:30.083Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-20",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "dT04JJjN0kcGvVzA96hWe0:APA91bFtej3cOx7d3Yxh2_xYW3lvWglwHIyj-tjjZoaGQSKGT44dSRDjt1c6v0CStJz8dj4r5VJZo8suAjI0Tr6h5HoyZahWG-c2O9_LjCBg3DOcz7yXWS0",
+      "is_read" : false
+    },
+    {
+      "id" : "678e51dbaf63b21ecb17ea16",
+      "body" : "This",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-20T13:38:35.732Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-20",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "eZ9ZJl8eCEnBsESQ9iRhfQ:APA91bGJZS0ZTROnLaN8FBbNPsIXsp4yq6ACxjySSMdqEORwutAj5tm3erWhAlckw9c-QgQ0G7yD6MtQOj8b2PNSUcpwm9RBrcBRZO8aw6Y5e67S9xJYWIc",
+      "is_read" : false
+    },
+    {
+      "id" : "678e51db3b3f451ecb192975",
+      "body" : "This",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-20T13:38:35.732Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-20",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "eZ9ZJl8eCEnBsESQ9iRhfQ:APA91bGJZS0ZTROnLaN8FBbNPsIXsp4yq6ACxjySSMdqEORwutAj5tm3erWhAlckw9c-QgQ0G7yD6MtQOj8b2PNSUcpwm9RBrcBRZO8aw6Y5e67S9xJYWIc",
+      "is_read" : false
+    },
+    {
+      "id" : "678e51db281ee91ecb3d3531",
+      "body" : "This",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-20T13:38:35.732Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-20",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "cWMVj6GE7UP9pqsrloVT4N:APA91bFiKR1cmHAEW9J5jB7WWe5B4JaE5DZopZ3SEFkcBDZJyW6ipe_SVdNc6-IQziZWUh-ZxtF5RNOVcwIySDBXUySXXAY-kSdKjc9glj7qEnp1PqTzmzI",
+      "is_read" : false
+    },
+    {
+      "id" : "678e51dbde2dda1ecb2d41b0",
+      "body" : "This",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-20T13:38:35.732Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-20",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "cEbocRbzNE8ylmsszW2Yqj:APA91bEPogElCCO7pSGaUXltEWR170lfc3jVenr1aTFTIKl5GsQs1uZZpkRRm6k0JYh5OM8Zg-q0Xa_nhC9cE_CESCTG-AHhRmFsm-HM5Y0VswuDv7z9BGs",
+      "is_read" : false
+    },
+    {
+      "id" : "678e51db204aae1ecbc8db65",
+      "body" : "This",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-20T13:38:35.732Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-20",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "cMOSXNGH7UfKnJQ2BTUCUZ:APA91bHh_D3mnoRL5XM8LoZkXaTYX7gCVGOa_UWQsbKHFxAH7WpwgD3DJxXP22c8phz_9p9AanaF_wloTUkLdYDCVHdynTu-EBfyVqDEJub9gjwGbYjJVL4",
+      "is_read" : false
+    },
+    {
+      "id" : "678e513c86167a1e0110f4bb",
+      "body" : "This week you have spend $108.50лло",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-20T13:35:56.714Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-20",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "dT04JJjN0kcGvVzA96hWe0:APA91bFtej3cOx7d3Yxh2_xYW3lvWglwHIyj-tjjZoaGQSKGT44dSRDjt1c6v0CStJz8dj4r5VJZo8suAjI0Tr6h5HoyZahWG-c2O9_LjCBg3DOcz7yXWS0",
+      "is_read" : true
+    },
+    {
+      "id" : "678e513c988b2c1e0150069c",
+      "body" : "This week you have spend $108.50лло",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-20T13:35:56.714Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-20",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "eZ9ZJl8eCEnBsESQ9iRhfQ:APA91bGJZS0ZTROnLaN8FBbNPsIXsp4yq6ACxjySSMdqEORwutAj5tm3erWhAlckw9c-QgQ0G7yD6MtQOj8b2PNSUcpwm9RBrcBRZO8aw6Y5e67S9xJYWIc",
+      "is_read" : false
+    },
+    {
+      "id" : "678e513c8928551e016f5e28",
+      "body" : "This week you have spend $108.50лло",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-20T13:35:56.714Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-20",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "eZ9ZJl8eCEnBsESQ9iRhfQ:APA91bGJZS0ZTROnLaN8FBbNPsIXsp4yq6ACxjySSMdqEORwutAj5tm3erWhAlckw9c-QgQ0G7yD6MtQOj8b2PNSUcpwm9RBrcBRZO8aw6Y5e67S9xJYWIc",
+      "is_read" : false
+    },
+    {
+      "id" : "678e513c32ebc31e015e6aa0",
+      "body" : "This week you have spend $108.50лло",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-20T13:35:56.714Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-20",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "cWMVj6GE7UP9pqsrloVT4N:APA91bFiKR1cmHAEW9J5jB7WWe5B4JaE5DZopZ3SEFkcBDZJyW6ipe_SVdNc6-IQziZWUh-ZxtF5RNOVcwIySDBXUySXXAY-kSdKjc9glj7qEnp1PqTzmzI",
+      "is_read" : false
+    },
+    {
+      "id" : "678e513cd775251e01d3cd07",
+      "body" : "This week you have spend $108.50лло",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-20T13:35:56.714Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-20",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "cEbocRbzNE8ylmsszW2Yqj:APA91bEPogElCCO7pSGaUXltEWR170lfc3jVenr1aTFTIKl5GsQs1uZZpkRRm6k0JYh5OM8Zg-q0Xa_nhC9cE_CESCTG-AHhRmFsm-HM5Y0VswuDv7z9BGs",
+      "is_read" : false
+    },
+    {
+      "id" : "678e513c76d9661e01be0385",
+      "body" : "This week you have spend $108.50лло",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-20T13:35:56.714Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-20",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "cMOSXNGH7UfKnJQ2BTUCUZ:APA91bHh_D3mnoRL5XM8LoZkXaTYX7gCVGOa_UWQsbKHFxAH7WpwgD3DJxXP22c8phz_9p9AanaF_wloTUkLdYDCVHdynTu-EBfyVqDEJub9gjwGbYjJVL4",
+      "is_read" : false
+    },
+    {
+      "id" : "678e515ec087cb1e014bf5de",
+      "body" : "This week you have spend",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-20T13:36:30.083Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-20",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "eZ9ZJl8eCEnBsESQ9iRhfQ:APA91bGJZS0ZTROnLaN8FBbNPsIXsp4yq6ACxjySSMdqEORwutAj5tm3erWhAlckw9c-QgQ0G7yD6MtQOj8b2PNSUcpwm9RBrcBRZO8aw6Y5e67S9xJYWIc",
+      "is_read" : false
+    },
+    {
+      "id" : "678e515ee532f51e01980ebd",
+      "body" : "This week you have spend",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-20T13:36:30.083Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-20",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "eZ9ZJl8eCEnBsESQ9iRhfQ:APA91bGJZS0ZTROnLaN8FBbNPsIXsp4yq6ACxjySSMdqEORwutAj5tm3erWhAlckw9c-QgQ0G7yD6MtQOj8b2PNSUcpwm9RBrcBRZO8aw6Y5e67S9xJYWIc",
+      "is_read" : false
+    },
+    {
+      "id" : "67882af5b27a379ba4524b17",
+      "body" : "This week you have spend $108.50лло",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-15T21:39:01.599Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-15",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "eZ9ZJl8eCEnBsESQ9iRhfQ:APA91bGJZS0ZTROnLaN8FBbNPsIXsp4yq6ACxjySSMdqEORwutAj5tm3erWhAlckw9c-QgQ0G7yD6MtQOj8b2PNSUcpwm9RBrcBRZO8aw6Y5e67S9xJYWIc",
+      "is_read" : false
+    },
+    {
+      "id" : "6788250979f9dc97b99fa6b1",
+      "body" : "This week you have spend $108.50",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-15T21:13:45.263Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-15",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "eZ9ZJl8eCEnBsESQ9iRhfQ:APA91bGJZS0ZTROnLaN8FBbNPsIXsp4yq6ACxjySSMdqEORwutAj5tm3erWhAlckw9c-QgQ0G7yD6MtQOj8b2PNSUcpwm9RBrcBRZO8aw6Y5e67S9xJYWIc",
+      "is_read" : true
+    },
+    {
+      "id" : "6788252c0b769697b9c011b4",
+      "body" : "This week you have spend $108.50",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-15T21:14:20.775Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-15",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "eZ9ZJl8eCEnBsESQ9iRhfQ:APA91bGJZS0ZTROnLaN8FBbNPsIXsp4yq6ACxjySSMdqEORwutAj5tm3erWhAlckw9c-QgQ0G7yD6MtQOj8b2PNSUcpwm9RBrcBRZO8aw6Y5e67S9xJYWIc",
+      "is_read" : true
+    },
+    {
+      "id" : "67882692570efa97b9ad4ab8",
+      "body" : "This week you have spend $108.50",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-15T21:20:18.608Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-15",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "eZ9ZJl8eCEnBsESQ9iRhfQ:APA91bGJZS0ZTROnLaN8FBbNPsIXsp4yq6ACxjySSMdqEORwutAj5tm3erWhAlckw9c-QgQ0G7yD6MtQOj8b2PNSUcpwm9RBrcBRZO8aw6Y5e67S9xJYWIc",
+      "is_read" : false
+    },
+    {
+      "id" : "678826a4cdf57e9ba4a29017",
+      "body" : "This week you have spend $108.50",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-15T21:20:36.811Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-15",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "eZ9ZJl8eCEnBsESQ9iRhfQ:APA91bGJZS0ZTROnLaN8FBbNPsIXsp4yq6ACxjySSMdqEORwutAj5tm3erWhAlckw9c-QgQ0G7yD6MtQOj8b2PNSUcpwm9RBrcBRZO8aw6Y5e67S9xJYWIc",
+      "is_read" : false
+    },
+    {
+      "id" : "67882526afe8d097b9ed106d",
+      "body" : "This week you have spend $108.50",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-15T21:14:13.998Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-15",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "eZ9ZJl8eCEnBsESQ9iRhfQ:APA91bGJZS0ZTROnLaN8FBbNPsIXsp4yq6ACxjySSMdqEORwutAj5tm3erWhAlckw9c-QgQ0G7yD6MtQOj8b2PNSUcpwm9RBrcBRZO8aw6Y5e67S9xJYWIc",
+      "is_read" : true
+    },
+    {
+      "id" : "678824cb91333d97b9462a4c",
+      "body" : "This week you have spend $108.50",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-15T21:12:43.606Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-15",
+      "title" : "Weekly spending's",
+      "type" : "new_message",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "eZ9ZJl8eCEnBsESQ9iRhfQ:APA91bGJZS0ZTROnLaN8FBbNPsIXsp4yq6ACxjySSMdqEORwutAj5tm3erWhAlckw9c-QgQ0G7yD6MtQOj8b2PNSUcpwm9RBrcBRZO8aw6Y5e67S9xJYWIc",
+      "is_read" : true
+    },
+    {
+      "id" : "6788251bfc85d297b9554b42",
+      "body" : "This week you have spend $108.50",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-15T21:14:03.483Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-15",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "eZ9ZJl8eCEnBsESQ9iRhfQ:APA91bGJZS0ZTROnLaN8FBbNPsIXsp4yq6ACxjySSMdqEORwutAj5tm3erWhAlckw9c-QgQ0G7yD6MtQOj8b2PNSUcpwm9RBrcBRZO8aw6Y5e67S9xJYWIc",
+      "is_read" : true
+    },
+    {
+      "id" : "678826e1f104ca9ba458c2ae",
+      "body" : "This week you have spend $108.50лло",
+      "additional_data" : {
+        "id" : "676bd128c146220001772ef9"
+      },
+      "created_at" : "2025-01-15T21:21:37.571Z",
+      "created_by" : "676bd128c146220001772ef9",
+      "user_id" : "676bd128c146220001772ef9",
+      "created_date" : "2025-01-15",
+      "title" : "Weekly spending's",
+      "type" : "5_min_before_booking",
+      "task_id" : null,
+      "is_deleted" : false,
+      "device_id" : "eZ9ZJl8eCEnBsESQ9iRhfQ:APA91bGJZS0ZTROnLaN8FBbNPsIXsp4yq6ACxjySSMdqEORwutAj5tm3erWhAlckw9c-QgQ0G7yD6MtQOj8b2PNSUcpwm9RBrcBRZO8aw6Y5e67S9xJYWIc",
+      "is_read" : true
+    }
+  ],
+  "total" : 0,
+  "limit" : 50
+}
+
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+
+
+

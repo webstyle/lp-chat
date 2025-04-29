@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  forwardRef,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { ChatService } from './chat.service';
 import { User } from 'src/common/decorator/user.decorator';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -16,14 +26,20 @@ import { AuthGuard } from 'src/common/guard/auth.guard';
 import { findOperatorsCronId } from '../../common/var/index.var';
 import { Cron } from '@nestjs/schedule';
 import { env } from '../../common/config/env.config';
-import { CreateChatDto } from './dto/chat.dto';
+import { CreateChatDto, StopConsultationAndChatDto } from './dto/chat.dto';
+import { BotHttpService } from '../bot/bot-http.service';
 
 @ApiTags('Chat')
 @Controller('chat')
 @UseGuards(AuthGuard)
 @ApiBearerAuth('authorization')
 export class ChatController {
-  constructor(private readonly chatService: ChatService) {}
+  constructor(
+    private readonly chatService: ChatService,
+
+    @Inject(forwardRef(() => BotHttpService))
+    private botHttpService: BotHttpService,
+  ) {}
 
   @Get('test')
   @ApiOperation({ summary: 'Socket listen (test) return test' })
@@ -88,8 +104,8 @@ export class ChatController {
 
   @ApiOperation({ summary: 'Get messages with chatId (client, operator)' })
   @Get('message-by-chat')
-  async messageByChaId(@Query() dto: GetMessagesByChatIdDto, @User() user: IUser) {
-    const data = await this.chatService.getMessagesByChatId(dto, user);
+  async messageByChaId(@Query() dto: GetMessagesByChatIdDto) {
+    const data = await this.chatService.getMessagesByChatId(dto);
     return CoreApiResponse.success(data);
   }
 
@@ -105,5 +121,17 @@ export class ChatController {
   @Cron(env.FIND_FREE_OPERATORS_CRON_PATTERN, { name: findOperatorsCronId })
   async handleCronSendActiveOperators() {
     return this.chatService.getAllActiveOperators();
+  }
+
+  @ApiOperation({
+    summary: 'Stop current chat and start new chat in queue',
+  })
+  @Post('stop-and-start-new-chat')
+  async stopCurrentChatAndStartNewChatInQueue(
+    @Body() dto: StopConsultationAndChatDto,
+    @User() user: IUser,
+  ) {
+    const data = await this.botHttpService.stopDialogHttp(dto, user);
+    return CoreApiResponse.success(data);
   }
 }

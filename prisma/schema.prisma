@@ -20,8 +20,6 @@ model file {
   message    message?
   path       String?
 
-  isDeleted Boolean @default(false) @map("is_deleted")
-
   // Timestamps
   createdAt DateTime? @default(now()) @map("created_at") @db.Timestamptz
   createdBy String?   @map("created_by") @db.VarChar(24)
@@ -33,7 +31,6 @@ model file {
 model downloadHistory {
   id        String   @id @default(dbgenerated("generate_object_id()")) @db.VarChar(24)
   userId    String?  @map("user_id") @db.VarChar(24)
-  doctorId  String?  @map("doctor_id") @db.VarChar(24)
   fileId    String   @map("file_id") @db.VarChar(24)
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
 
@@ -61,9 +58,9 @@ model message {
   acceptDoctorId   String?       @map("accept_doctor_id")
   acceptDoctor     doctor?       @relation(fields: [acceptDoctorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   transaction      transactions? @relation(fields: [transactionId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-
-  rate        Int?    @map("rate")
-  rateComment String? @map("rate_comment")
+  callDuration     Float?        @map("call_duration")
+  rate             Int?          @map("rate")
+  rateComment      String?       @map("rate_comment")
 
   isDeleted Boolean   @default(false) @map("is_deleted")
   // Timestamps
@@ -178,15 +175,16 @@ model chat {
   rejectedOperators rejectedChat[]
   messagesToDelete  messageToDelete[] @ignore
 
-  isDeleted Boolean   @default(false) @map("is_deleted")
+  isDeleted    Boolean       @default(false) @map("is_deleted")
   // Timestamps
-  deletedAt DateTime? @map("deleted_at") @db.Timestamptz
-  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt DateTime? @default(now()) @map("updated_at") @db.Timestamptz
+  deletedAt    DateTime?     @map("deleted_at") @db.Timestamptz
+  createdAt    DateTime?     @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime?     @default(now()) @map("updated_at") @db.Timestamptz
   // User IDs
-  deletedBy String?   @map("deleted_by") @db.VarChar(24)
-  createdBy String?   @map("created_by") @db.VarChar(24)
-  updatedBy String?   @map("updated_by") @db.VarChar(24)
+  deletedBy    String?       @map("deleted_by") @db.VarChar(24)
+  createdBy    String?       @map("created_by") @db.VarChar(24)
+  updatedBy    String?       @map("updated_by") @db.VarChar(24)
+  consultation consultation?
 
   @@map("chat")
   @@schema("chat")
@@ -287,6 +285,8 @@ model consultation {
   comment       String?   @map("comment")
   // topicId       String?   @map("topic_id")
   chatStartedAt DateTime? @map("chat_started_at")
+
+  chat chat? @relation(fields: [chatId], references: [id])
 
   @@map("consultations")
   @@schema("consultation")
